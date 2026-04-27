@@ -1,0 +1,14 @@
+# Python virtual environments
+venv/
+.venv/
+env/
+
+# Data and Models
+*.zip
+*.csv
+*.h5
+*.pth
+datasets/
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
