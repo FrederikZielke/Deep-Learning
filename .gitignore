@@ -8,7 +8,11 @@ env/
 *.csv
 *.h5
 *.pth
+*.npy
 datasets/
 
 # Jupyter Notebook Checkpoints
 .ipynb_checkpoints/
+
+# dont track pdf files
+.pdf
