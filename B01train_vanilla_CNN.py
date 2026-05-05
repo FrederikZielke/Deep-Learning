@@ -7,11 +7,13 @@ import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset, random_split
 import numpy as np
 from matplotlib import pyplot as plt
-from torchsummary import summary
+from torchinfo import summary
 from helper import normalize, denormalize, train_model, get_normalized_data, evaluate_model
 from model_examples import TinyCNN
+from models import CNN_Astronomy
+    
 
-DATA_PATH = "../data/4/"
+DATA_PATH = "Deep-Learning/data_galah4"
 
 # Hyperparameters
 learning_rate = 2e-4
@@ -41,15 +43,18 @@ val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
 # Model selection
-model_choice = 'tiny_CNN'
+# model_choice = 'tiny_CNN'
+model_choice = 'CNN_Astronomy'
 
 if model_choice == 'tiny_CNN':
     model = TinyCNN(n_labels)
+elif model_choice == 'CNN_Astronomy':
+    model = CNN_Astronomy(n_labels)
 else:
-    raise ValueError("Invalid model choice. Please select 'tiny_CNN'.")
+    raise ValueError("Invalid model choice. Please select 'tiny_CNN' or 'CNN_Astronomy'.")
 
 # Print the model summary before moving it to the device
-summary(model, input_size=(1, spectra_length))
+summary(model, input_size=(1, 1, spectra_length))
 
 # Detect and use Apple Silicon GPU (MPS) if available
 device = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
@@ -88,9 +93,9 @@ train_losses, val_losses, best_model = train_model(model, train_loader, val_load
 # Final evaluation on the test dataset
 model.load_state_dict(best_model)  # Load the best model
 # save the best model to the "models" directory
-if not os.path.exists('models'):
-    os.makedirs('models')
-torch.save(best_model, f'models/{model_choice}_best.pth')
+if not os.path.exists('Deep-Learning/models'):
+    os.makedirs('Deep-Learning/models')
+torch.save(best_model, f'Deep-Learning/models/{model_choice}_best.pth')
 model.to(device)
 
 all_predictions, all_true_labels,_,_ = evaluate_model(model, test_loader, loss_function, device)
@@ -107,7 +112,7 @@ plt.ylabel('Loss')
 plt.title('Training and Validation Loss')
 plt.legend()
 plt.grid(True)
-plt.savefig('plots/Vanilla_CNN_training_validation_loss.png')
+plt.savefig(f'Deep-Learning/plots/{model_choice}_training_validation_loss.png')
 
 # Scatter plots for predictions
 plt.figure(figsize=(16,7.5))
@@ -120,5 +125,5 @@ for j in range(n_labels):
     plt.ylabel("predicted "+labelNames[j])
     plt.legend()
 plt.tight_layout()
-plt.savefig('plots/Vanilla_CNN_scatter.png')
+plt.savefig(f'Deep-Learning/plots/{model_choice}_scatter.png')
 plt.show()

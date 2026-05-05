@@ -3,7 +3,7 @@ venv/
 .venv/
 env/
 
-.pyc
+*.pyc
 
 # Data and Models
 *.zip
@@ -17,5 +17,6 @@ datasets/
 .ipynb_checkpoints/
 
 # dont pictures or pdf files
-.pdf
-,png
+*.pdf
+*.png
+
