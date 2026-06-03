@@ -12,6 +12,8 @@ env/
 *.pth
 *.npy
 datasets/
+dataset/
+runs/
 *.pq
 
 # Jupyter Notebook Checkpoints
