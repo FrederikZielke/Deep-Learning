@@ -21,3 +21,4 @@ datasets/
 *.pdf
 *.png
 
+.vscode/
