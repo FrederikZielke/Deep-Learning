@@ -9,12 +9,15 @@ env/
 *.zip
 *.csv
 *.h5
+*.keras
 *.pth
 *.npy
 datasets/
 dataset/
 runs/
 *.pq
+*.tar.gz
+*.mat
 
 # Jupyter Notebook Checkpoints
 .ipynb_checkpoints/
@@ -22,5 +25,10 @@ runs/
 # dont pictures or pdf files
 *.pdf
 *.png
+*.jpg
+*.jpeg
 
 .vscode/
+
+# whatever the hell .xml is
+*.xml
