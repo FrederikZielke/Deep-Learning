@@ -1,0 +1,196 @@
+\documentclass[
+  bibliography=totoc,     % Bibliography in table of contents
+  captions=tableheading,  % Table headings
+  titlepage=firstiscover, % Title page is cover page
+  parskip=half,
+  american                % Changed from ngerman to american
+]{scrartcl}
+
+% Improve float package
+\usepackage{scrhack}
+
+% Warning if recompilation is necessary
+\usepackage[aux]{rerunfilecheck}
+
+% Indispensable math commands
+\usepackage{amsmath}
+% Many math symbols
+\usepackage{amssymb}
+% Extensions for amsmath
+\usepackage{mathtools}
+
+% Font settings
+\usepackage{fontspec}
+% Latin Modern Fonts are loaded automatically
+% Alternative example:
+%\setromanfont{Libertinus Serif}
+%\setsansfont{Libertinus Sans}
+%\setmonofont{Libertinus Mono}
+
+% If you set other fonts,
+% you should recalculate the page layout
+\recalctypearea{}
+
+% English language settings
+\usepackage[main=american]{babel}
+
+% Translations
+%\usepackage{translator}
+
+\usepackage[
+  math-style=ISO,    % ┐
+  bold-style=ISO,    % │
+  sans-style=italic, % │ Follow ISO standard
+  nabla=upright,     % │
+  partial=upright,   % ┘
+  warnings-off={           % ┐
+    mathtools-colon,       % │ Turn off unnecessary warnings
+    mathtools-overbracket, % │
+  },                       % ┘
+]{unicode-math}
+
+% Traditional fonts for mathematics
+\setmathfont{Latin Modern Math}
+% Alternative example:
+%\setmathfont{Libertinus Math}
+
+\setmathfont{XITS Math}[range={scr, bfscr}]
+\setmathfont{XITS Math}[range={cal, bfcal}, StylisticSet=1]
+
+% Numbers and units
+\usepackage[
+  locale=US,                   % US settings (uses . for decimals)
+  separate-uncertainty=true,   % Always show error with \pm
+  per-mode=symbol-or-fraction, % / in inline math, fraction in display math
+]{siunitx}
+\DeclareSIUnit\c{\mathit{c}}
+
+% Chemical formulas
+\usepackage[
+  version=4,
+  math-greek=default, % ┐ Work together with unicode-math
+  text-greek=default, % ┘
+]{mhchem}
+
+% Correct quotation marks (adapts automatically to babel language)
+\usepackage[autostyle]{csquotes}
+
+% Nice fractions in text
+\usepackage{xfrac}
+
+% Set standard placement for floats
+\usepackage{float}
+\floatplacement{figure}{htbp}
+\floatplacement{table}{htbp}
+
+% Keep floats within a section
+\usepackage[
+  section, % Keep floats within the section
+  %below,   % Below the section but on the same page is ok
+]{placeins}
+
+% Keep floats within a subsection:
+\makeatletter
+\AtBeginDocument{%
+  \expandafter\renewcommand\expandafter\subsection\expandafter{%
+    \expandafter\@fb@secFB\subsection
+  }%
+}
+\makeatother
+
+% Rotate page for wide tables: landscape environment
+\usepackage{pdflscape}
+
+% Temporarily make margins smaller
+\usepackage{geometry}
+
+% Make captions look nicer
+\usepackage[
+  labelfont=bf,        % Table x: Figure y: is now bold
+  font=small,          % Font slightly smaller than document
+  width=0.9\textwidth, % Maximum width of a caption is narrower
+]{caption}
+
+% subfigure, subtable, subref
+\usepackage{subcaption}
+
+% Graphics can be included
+\usepackage{graphicx}
+% Larger variety of file names possible
+\usepackage{grffile}
+
+% Nice tables
+\usepackage{booktabs}
+
+% Improvements to typography
+\usepackage{microtype}
+
+% Bibliography
+\usepackage[
+  backend=biber,
+  natbib=true,
+  style=numeric,
+  sorting=none
+]{biblatex}
+% Source database
+\addbibresource{bib/versuche.bib}
+
+% Hyperlinks in the document
+\usepackage[
+  english,        % Changed from german
+  unicode,        % Allow Unicode in PDF attributes
+  pdfusetitle,    % Title, authors, and date as PDF attributes
+  pdfcreator={},  % ┐ Clean up PDF attributes
+  pdfproducer={}, % ┘
+]{hyperref}
+
+% Extended bookmarks in the PDF
+\usepackage{bookmark}
+
+% Hyphenation of words with dashes
+\usepackage[shortcuts]{extdash}
+
+% Customizable enumerates/itemizes
+\usepackage{enumitem}
+
+% Tables with a cell spanning multiple rows
+\usepackage{multirow}
+
+% Tables from .csv files
+\usepackage{csvsimple}
+
+%----------------
+% New Commands
+%----------------
+% Differentials
+\NewDocumentCommand \dif{m} 
+{
+  \mathinner{\symup{d} #1}
+}
+% Table header with variable and unit
+\NewDocumentCommand \tableSI{m m} 
+{
+  $#1 \:/\: \si{#2}$
+}
+
+\author{%
+  Frederik Zielke\\
+  \href{mailto:frederik.zielke@tu-dortmund.de}{frederik.zielke@tu-dortmund.de}\\
+}
+\publishers{TU Dortmund – Department of Physics}%
+
+\usepackage{pgfplotstable}  % Typeset table and manipulate column entries
+
+\usepackage{filecontents}   % To illustrate importing data from external file
+
+\usepackage{upgreek}
+
+% For presenting code snippets neatly
+\usepackage{listings}
+
+% For quotation marks
+\usepackage{dirtytalk}
+
+
+% Required for the curly grouping brackets
+\usetikzlibrary{decorations.pathreplacing, calc, positioning}
